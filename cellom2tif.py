@@ -68,7 +68,7 @@ def convert_files(out_base, path, files):
     >>> out_dir = 'tiff_files'
     >>> files = os.listdir(in_dir)
     >>> files
-    ['image1.c01', 'image2.c02']
+    ['image1.c01', 'image2.c01']
     >>> convert_files(out_dir, in_dir, files)
     >>> os.listdir(out_dir)
     ['image1.tif', 'image2.tif']
