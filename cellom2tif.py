@@ -82,10 +82,13 @@ def convert_files(out_base, path, files):
         fin = os.path.join(path, fn)
         print fin
         fout = os.path.join(out_path, fn)[:-4] + '.tif'
-        print fout
-        IJ.run('Bio-Formats (Windowless)', 'open=%s' % fin)
-        IJ.saveAs('Tiff', fout)
-        IJ.close()
+        if not os.path.exists(fout):
+            print "creating", fout
+            IJ.run('Bio-Formats (Windowless)', 'open=%s' % fin)
+            IJ.saveAs('Tiff', fout)
+            IJ.close()
+        else:
+            print fout, "exists"
 
 
 if __name__ == '__main__':
