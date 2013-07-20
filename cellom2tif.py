@@ -85,8 +85,9 @@ def convert_files(out_base, path, files):
         if not os.path.exists(fout):
             print "creating", fout
             IJ.run('Bio-Formats (Windowless)', 'open=%s' % fin)
-            IJ.saveAs('Tiff', fout)
-            IJ.close()
+            imp = IJ.getImage()
+            IJ.saveAs(imp, 'Tiff', fout)
+            imp.close()
         else:
             print fout, "exists"
 
