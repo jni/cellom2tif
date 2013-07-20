@@ -3,6 +3,7 @@ import argparse
 import sys
 
 from ij import IJ
+from loci.plugins import BF
 #import WindowManager
 
 
@@ -84,8 +85,7 @@ def convert_files(out_base, path, files):
         fout = os.path.join(out_path, fn)[:-4] + '.tif'
         if not os.path.exists(fout):
             print "creating", fout
-            IJ.run('Bio-Formats (Windowless)', 'open=%s' % fin)
-            imp = IJ.getImage()
+            imp = BF.openImagePlus(fin)[0]
             IJ.saveAs(imp, 'Tiff', fout)
             imp.close()
         else:
