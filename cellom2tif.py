@@ -85,6 +85,7 @@ def convert_files(out_base, path, files):
         print fout
         IJ.run('Bio-Formats (Windowless)', 'open=%s' % fin)
         IJ.saveAs('Tiff', fout)
+        IJ.close()
 
 
 if __name__ == '__main__':
