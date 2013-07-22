@@ -28,6 +28,10 @@ On Linux, it's
 $DOWNLOAD_DIR/Fiji.app/ImageJ-linux64
 ```
 
+Note that weird behavior may occur when the input and output directories are
+the same, or subdirectories of one another, since the script recurses down
+subdirectories and recreates the subdirectory structure in the output path.
+
 # Licenses
 
 `argparse.py` is distributed under the [Python Software Foundation License](
