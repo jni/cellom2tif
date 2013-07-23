@@ -97,7 +97,7 @@ def convert_files(out_base, path, files, error_file=None):
             try:
                 imp = BF.openImagePlus(opts)[0]
             except:
-                ferr.write(os.path.join(path, fin) + '\n')
+                ferr.write(fin + '\n')
                 ferr.flush()
             else:
                 print "creating", fout
