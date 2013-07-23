@@ -113,10 +113,12 @@ if __name__ == '__main__':
         description='Convert a bunch of Cellomics .C01 files to TIFFs.')
     parser.add_argument('root_path', help='The path containing .C01 files')
     parser.add_argument('out_path', help='The path to output the TIFFs.')
+    parser.add_argument('-E', '--error-file', metavar='FILENAME',
+                        help='Log problem filenames to the given filename.')
 
     print sys.argv
     args = parser.parse_args()
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
         convert_files(path.replace(args.root_path, args.out_path), path,
-                      files)
+                      files, args.error_file)
