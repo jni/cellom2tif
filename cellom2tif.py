@@ -46,7 +46,7 @@ def split_top(path):
     return head, tail
 
 
-def convert_files(out_base, path, files):
+def convert_files(out_base, path, files, error_file=None):
     """Convert cellomics .C01 files to TIFF files in a sibling directory.
 
     This function is designed to be used with `os.walk`.
@@ -59,6 +59,8 @@ def convert_files(out_base, path, files):
         The path to the files to be converted.
     files : list of string
         The filenames of files, including non-.C01 files.
+    error_file : string, optional
+        A file to which to log "corrupted" images.
 
     Returns
     -------
@@ -75,6 +77,10 @@ def convert_files(out_base, path, files):
     >>> os.listdir(out_dir)
     ['image1.tif', 'image2.tif']
     """
+    if error_file is None:
+        ferr = sys.stdout
+    else:
+        ferr = open(os.path.join(out_base, error_file), 'w')
     in_base, in_tail = split_top(path)
     out_path = os.path.join(out_base, in_tail)
     if not os.path.isdir(out_path):
@@ -88,10 +94,15 @@ def convert_files(out_base, path, files):
         opts.setUngroupFiles(True)
         if not os.path.exists(fout):
             opts.setId(fin)
-            imp = BF.openImagePlus(opts)[0]
-            print "creating", fout
-            IJ.saveAs(imp, 'Tiff', fout)
-            imp.close()
+            try:
+                imp = BF.openImagePlus(opts)[0]
+            except:
+                ferr.write(os.path.join(path, fin) + '\n')
+                ferr.flush()
+            else:
+                print "creating", fout
+                IJ.saveAs(imp, 'Tiff', fout)
+                imp.close()
         else:
             print fout, "exists"
 
