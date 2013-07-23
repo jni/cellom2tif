@@ -4,6 +4,7 @@ import sys
 
 from ij import IJ
 from loci.plugins import BF
+from loci.plugins.in import ImporterOptions
 #import WindowManager
 
 
@@ -83,9 +84,12 @@ def convert_files(out_base, path, files):
         fin = os.path.join(path, fn)
         print fin
         fout = os.path.join(out_path, fn)[:-4] + '.tif'
+        opts = ImporterOptions()
+        opts.setUngroupFiles(True)
         if not os.path.exists(fout):
+            opts.setId(fin)
+            imp = BF.openImagePlus(opts)[0]
             print "creating", fout
-            imp = BF.openImagePlus(fin)[0]
             IJ.saveAs(imp, 'Tiff', fout)
             imp.close()
         else:
