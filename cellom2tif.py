@@ -86,6 +86,7 @@ def convert_files(out_base, path, files, error_file=None):
     if not os.path.isdir(out_path):
         os.makedirs(out_path)
     files = filter(lambda x: x.endswith('.C01'), files)
+    files = sorted(files)
     for fn in files:
         fin = os.path.join(path, fn)
         print fin
