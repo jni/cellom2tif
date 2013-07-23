@@ -46,7 +46,7 @@ def split_top(path):
     return head, tail
 
 
-def convert_files(out_base, path, files, error_file=None):
+def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     """Convert cellomics .C01 files to TIFF files in a sibling directory.
 
     This function is designed to be used with `os.walk`.
@@ -61,6 +61,8 @@ def convert_files(out_base, path, files, error_file=None):
         The filenames of files, including non-.C01 files.
     error_file : string, optional
         A file to which to log "corrupted" images.
+    ignore_masks : bool, optional
+        Ignore files ending in "o1.C01".
 
     Returns
     -------
@@ -86,6 +88,8 @@ def convert_files(out_base, path, files, error_file=None):
     if not os.path.isdir(out_path):
         os.makedirs(out_path)
     files = filter(lambda x: x.endswith('.C01'), files)
+    if ignore_masks:
+        files = filter(lambda x: not x.endswith('o1.C01'), files)
     files = sorted(files)
     for fn in files:
         fin = os.path.join(path, fn)
@@ -115,10 +119,12 @@ if __name__ == '__main__':
     parser.add_argument('out_path', help='The path to output the TIFFs.')
     parser.add_argument('-E', '--error-file', metavar='FILENAME',
                         help='Log problem filenames to the given filename.')
+    parser.add_argument('-m', '--ignore-masks', action='store_true',
+                        help='Ignore files ending in "o1.C01".')
 
     print sys.argv
     args = parser.parse_args()
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
         convert_files(path.replace(args.root_path, args.out_path), path,
-                      files, args.error_file)
+                      files, args.error_file, args.ignore_masks)
