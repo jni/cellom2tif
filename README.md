@@ -3,9 +3,34 @@ cellom2tif
 
 Fiji Jython script to convert Cellomics .C01 files to TIFF.
 
+# Dependencies
+
+Needs to be run through [Fiji](http://fiji.sc), not the Python interpreter.
+
 # Usage
 
-/path/to/fiji cellom2tif.py path/to/c01/files tiff/output/path
+Be sure to download Fiji and update it (it will prompt to update upon
+launch). Then:
+
+```
+/path/to/fiji /path/to/cellom2tif/cellom2tif.py path/to/c01/files output/path
+```
+
+On Mac OS X, the Fiji executable is usually at:
+
+```
+/Applications/Fiji.app/Contents/MacOS/fiji-macosx
+```
+
+On Linux, it's
+
+```
+$DOWNLOAD_DIR/Fiji.app/ImageJ-linux64
+```
+
+Note that weird behavior may occur when the input and output directories are
+the same, or subdirectories of one another, since the script recurses down
+subdirectories and recreates the subdirectory structure in the output path.
 
 # Licenses
 
