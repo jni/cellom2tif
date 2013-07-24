@@ -79,14 +79,14 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     >>> os.listdir(out_dir)
     ['image1.tif', 'image2.tif']
     """
-    if error_file is None:
-        ferr = sys.stdout
-    else:
-        ferr = open(os.path.join(out_base, error_file), 'w')
     in_base, in_tail = split_top(path)
     out_path = os.path.join(out_base, in_tail)
     if not os.path.isdir(out_path):
         os.makedirs(out_path)
+    if error_file is None:
+        ferr = sys.stdout
+    else:
+        ferr = open(os.path.join(out_base, error_file), 'w')
     files = filter(lambda x: x.endswith('.C01'), files)
     if ignore_masks:
         files = filter(lambda x: not x.endswith('o1.C01'), files)
