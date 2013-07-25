@@ -87,9 +87,10 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
         ferr = sys.stdout
     else:
         ferr = open(os.path.join(out_base, error_file), 'w')
-    files = filter(lambda x: x.endswith('.C01'), files)
+    files = filter(lambda x: x.endswith('.C01') or x.endswith('.c01'), files)
     if ignore_masks:
-        files = filter(lambda x: not x.endswith('o1.C01'), files)
+        files = filter(lambda x: not (x.endswith('o1.C01') or
+				      x.endswith('o1.c01')), files)
     files = sorted(files)
     for fn in files:
         fin = os.path.join(path, fn)
