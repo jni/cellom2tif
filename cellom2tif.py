@@ -46,6 +46,40 @@ def split_top(path):
     return head, tail
 
 
+def is_cellomics_image(fn):
+    """Determine whether a file is a Cellomics image.
+
+    Parameters
+    ----------
+    fn : string
+        The filename of the file in question.
+
+    Returns
+    -------
+    is_cellom : bool
+        True if the filename points to a Cellomics image.
+    """
+    is_cellom = fn.endswith('.C01') or fn.endswith('.c01')
+    return is_cellom
+
+
+def is_cellomics_mask(fn):
+    """Determine whether a file is a Cellomics mask image.
+
+    Parameters
+    ----------
+    fn : string
+        The filename.
+
+    Returns
+    -------
+    is_mask : bool
+        True if the filename points to a Cellomics mask image.
+    """
+    is_mask = x.endswith('o1.C01') or x.endswith('o1.c01')
+    return is_mask
+
+
 def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     """Convert cellomics .C01 files to TIFF files in a sibling directory.
 
@@ -87,10 +121,9 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
         ferr = sys.stdout
     else:
         ferr = open(os.path.join(out_base, error_file), 'w')
-    files = filter(lambda x: x.endswith('.C01') or x.endswith('.c01'), files)
+    files = filter(is_cellomics_image, files)
     if ignore_masks:
-        files = filter(lambda x: not (x.endswith('o1.C01') or
-				      x.endswith('o1.c01')), files)
+        files = filter(lambda fn: not is_cellomics_mask(fn), files)
     files = sorted(files)
     for fn in files:
         fin = os.path.join(path, fn)
