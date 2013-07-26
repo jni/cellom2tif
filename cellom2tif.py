@@ -113,10 +113,8 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     >>> os.listdir(out_dir)
     ['image1.tif', 'image2.tif']
     """
-    in_base, in_tail = split_top(path)
-    out_path = os.path.join(out_base, in_tail)
-    if not os.path.isdir(out_path):
-        os.makedirs(out_path)
+    if not os.path.isdir(out_base):
+        os.makedirs(out_base)
     if error_file is None:
         ferr = sys.stdout
     else:
@@ -128,7 +126,7 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     for fn in files:
         fin = os.path.join(path, fn)
         print fin
-        fout = os.path.join(out_path, fn)[:-4] + '.tif'
+        fout = os.path.join(out_base, fn)[:-4] + '.tif'
         opts = ImporterOptions()
         opts.setUngroupFiles(True)
         if not os.path.exists(fout):
