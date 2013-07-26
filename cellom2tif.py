@@ -76,7 +76,7 @@ def is_cellomics_mask(fn):
     is_mask : bool
         True if the filename points to a Cellomics mask image.
     """
-    is_mask = x.endswith('o1.C01') or x.endswith('o1.c01')
+    is_mask = fn.endswith('o1.C01') or fn.endswith('o1.c01')
     return is_mask
 
 
