@@ -160,5 +160,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
-        convert_files(path.replace(args.root_path, args.out_path), path,
+        convert_files(path.replace(args.root_path, args.out_path, 1), path,
                       files, args.error_file, args.ignore_masks)
