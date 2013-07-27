@@ -2,10 +2,6 @@ import os
 import argparse
 import sys
 
-from ij import IJ
-from loci.plugins import BF
-from loci.plugins.in import ImporterOptions
-
 
 def split_top(path):
     """Like `os.path.split`, but splitting from the topmost directory.
@@ -112,6 +108,7 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     >>> os.listdir(out_dir)
     ['image1.tif', 'image2.tif']
     """
+    from jython_imports import IJ, BF, ImporterOptions
     if not os.path.isdir(out_base):
         os.makedirs(out_base)
     if error_file is None:
