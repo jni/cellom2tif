@@ -5,7 +5,6 @@ import sys
 from ij import IJ
 from loci.plugins import BF
 from loci.plugins.in import ImporterOptions
-#import WindowManager
 
 
 def split_top(path):
@@ -154,7 +153,6 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--ignore-masks', action='store_true',
                         help='Ignore files ending in "o1.C01".')
 
-    print sys.argv
     args = parser.parse_args()
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
