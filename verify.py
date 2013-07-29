@@ -6,7 +6,7 @@ from filetypes import is_cellomics_image, is_cellomics_mask
 
 
 class open_write(argparse.Action):
-    def __call__(self, parser, namespace, value):
+    def __call__(self, parser, namespace, value, option_string=None):
         if value == '-':
             setattr(namespace, self.dest, sys.stdout)
         else:
