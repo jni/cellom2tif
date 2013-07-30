@@ -88,4 +88,7 @@ if __name__ == '__main__':
                                 args.ignore_masks)
     for fn in missed:
         args.fout.write(fn+'\n')
+    if len(missed) == 0 and args.fout.name != '<stdout>':
+        args.fout.close()
+        os.remove(args.fout.name)
 
