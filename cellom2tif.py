@@ -83,11 +83,13 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     if error_file is None:
         ferr = sys.stdout
     else:
-        ferr = open(os.path.join(out_base, error_file), 'w')
+        error_file = os.path.join(out_base, error_file)
+        ferr = open(error_file, 'w')
     files = filter(is_cellomics_image, files)
     if ignore_masks:
         files = filter(lambda fn: not is_cellomics_mask(fn), files)
     files = sorted(files)
+    errors_found = False
     for fn in files:
         fin = os.path.join(path, fn)
         print fin
@@ -101,12 +103,16 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
             except:
                 ferr.write(fin + '\n')
                 ferr.flush()
+                errors_found = True
             else:
                 print "creating", fout
                 IJ.saveAs(imp, 'Tiff', fout)
                 imp.close()
         else:
             print fout, "exists"
+    if not errors_found and error_file is not None:
+        ferr.close()
+        os.remove(error_file)
 
 
 if __name__ == '__main__':
