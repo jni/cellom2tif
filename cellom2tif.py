@@ -44,7 +44,8 @@ def split_top(path):
     return head, tail
 
 
-def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
+def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
+                  verbose=False):
     """Convert cellomics .C01 files to TIFF files in a sibling directory.
 
     This function is designed to be used with `os.walk`.
@@ -61,6 +62,8 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
         A file to which to log "corrupted" images.
     ignore_masks : bool, optional
         Ignore files ending in "o1.C01".
+    verbose : bool, optional
+        If ``True``, print out diagnostic info during conversions.
 
     Returns
     -------
@@ -92,7 +95,8 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
     errors_found = False
     for fn in files:
         fin = os.path.join(path, fn)
-        print fin
+        if verbose:
+            print fin
         fout = os.path.join(out_base, fn)[:-4] + '.tif'
         opts = ImporterOptions()
         opts.setUngroupFiles(True)
@@ -105,11 +109,13 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False):
                 ferr.flush()
                 errors_found = True
             else:
-                print "creating", fout
+                if verbose:
+                    print "creating", fout
                 IJ.saveAs(imp, 'Tiff', fout)
                 imp.close()
         else:
-            print fout, "exists"
+            if verbose:
+                print fout, "exists"
     if not errors_found and error_file is not None:
         ferr.close()
         os.remove(error_file)
@@ -124,9 +130,11 @@ if __name__ == '__main__':
                         help='Log problem filenames to the given filename.')
     parser.add_argument('-m', '--ignore-masks', action='store_true',
                         help='Ignore files ending in "o1.C01".')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='Print out runtime information.')
 
     args = parser.parse_args()
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
         convert_files(path.replace(args.root_path, args.out_path, 1), path,
-                      files, args.error_file, args.ignore_masks)
+                      files, args.error_file, args.ignore_masks, args.verbose)
