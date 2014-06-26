@@ -1,15 +1,5 @@
 #!/bin/env python
 
-# Steps to test cellom2tif:
-# 1. edit the alias declaration below to point to the right Fiji binary
-# 2. Run this script from the cellom2tif directory
-
-fiji="/Applications/Fiji.app/Contents/MacOS/fiji-macosx"
-# common Fiji binary locations
-# OSX: /Applications/Fiji.app/Contents/MacOS/fiji-macosx
-# Linux: ~/Downloads/Fiji.app/ImageJ-linux64
-
-
 import os
 import argparse
 import sys
@@ -91,7 +81,7 @@ if __name__ == '__main__':
     shutil.rmtree(test_output_dir, ignore_errors=True)
     shutil.rmtree(test_output_mask_dir, ignore_errors=True)
 
-    call = [fiji, '--headless', 'cellom2tif.py']
+    call = ['python', 'cellom2tif.py']
     if not args.ignore_masks:
         flags = []
         indirs = [test_data_dir, test_output_dir]
