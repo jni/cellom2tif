@@ -2,7 +2,7 @@ import os
 import argparse
 import sys
 
-import mahotas as mh
+import tifffile as tif
 import javabridge as jv
 import bioformats as bf
 
@@ -162,7 +162,7 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
         fout = os.path.join(out_base, fn)[:-4] + '.tif'
         if not os.path.exists(fout):
             im = read_image(fin)
-            mh.imsave(fout, im)
+            tif.imsave(fout, im)
         else:
             if verbose:
                 print fout, "exists"
