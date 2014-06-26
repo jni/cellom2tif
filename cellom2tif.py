@@ -2,8 +2,71 @@ import os
 import argparse
 import sys
 
+import mahotas as mh
+import javabridge as jv
+import bioformats as bf
 
 from filetypes import is_cellomics_image, is_cellomics_mask
+
+
+VM_STARTED = False
+VM_KILLED = False
+
+
+def start(max_heap_size='8G'):
+    """Start the Java Virtual Machine, enabling bioformats IO.
+
+    Parameters
+    ----------
+    max_heap_size : string, optional
+        The maximum memory usage by the virtual machine. Valid strings
+        include '256M', '64k', and '2G'. Expect to need a lot.
+    """
+    jv.start_vm(class_path=bf.JARS, max_heap_size=max_heap_size)
+    global VM_STARTED
+    VM_STARTED = True
+
+
+def done():
+    """Kill the JVM. Once killed, it cannot be restarted.
+
+    Notes
+    -----
+    See the python-javabridge documentation for more information.
+    """
+    jv.kill_vm()
+    global VM_KILLED
+    VM_KILLED = True
+
+
+def read_image(filelike):
+    """Read an image volume from a file.
+
+    Parameters
+    ----------
+    filelike : string or bf.ImageReader
+        Either a filename containing a BioFormats image, or a
+        `bioformats.ImageReader`.
+
+    Returns
+    -------
+    image : numpy ndarray, 5 dimensions
+        The read image.
+    """
+    if not VM_STARTED:
+        start()
+    if VM_KILLED:
+        raise RuntimeError("The Java Virtual Machine has already been "
+                           "killed, and cannot be restarted. See the "
+                           "python-javabridge documentation for more "
+                           "information. You must restart your program "
+                           "and try again.")
+    if isinstance(filelike, bf.ImageReader):
+        rdr = filelike
+    else:
+        rdr = bf.ImageReader(filelike)
+    image = rdr.read(rescale=False)
+    return image
 
 
 def split_top(path):
@@ -80,7 +143,6 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
     >>> os.listdir(out_dir)
     ['image1.tif', 'image2.tif']
     """
-    from jython_imports import IJ, BF, ImporterOptions
     if not os.path.isdir(out_base):
         os.makedirs(out_base)
     if error_file is None:
@@ -98,21 +160,9 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
         if verbose:
             print fin
         fout = os.path.join(out_base, fn)[:-4] + '.tif'
-        opts = ImporterOptions()
-        opts.setUngroupFiles(True)
         if not os.path.exists(fout):
-            opts.setId(fin)
-            try:
-                imp = BF.openImagePlus(opts)[0]
-            except:
-                ferr.write(fin + '\n')
-                ferr.flush()
-                errors_found = True
-            else:
-                if verbose:
-                    print "creating", fout
-                IJ.saveAs(imp, 'Tiff', fout)
-                imp.close()
+            im = read_image(fin)
+            mh.imsave(fout, im)
         else:
             if verbose:
                 print fout, "exists"
@@ -138,3 +188,4 @@ if __name__ == '__main__':
     for path, dirs, files in paths:
         convert_files(path.replace(args.root_path, args.out_path, 1), path,
                       files, args.error_file, args.ignore_masks, args.verbose)
+    done()
