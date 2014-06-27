@@ -31,9 +31,6 @@ if __name__ == '__main__':
         author_email=MAINTAINER_EMAIL,
         license=LICENSE,
         packages=['cellom2tif'],
-        package_data={'cellom2tif': 
-                      ['test-data', 'test-data-results', 'test-data-results-m']
-                     },
         install_requires=INST_DEPENDENCIES,
         scripts=["bin/cellom2tif"]
     )
