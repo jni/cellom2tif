@@ -2,11 +2,11 @@ import os
 import argparse
 import sys
 
-import tifffile as tif
+from . import tifffile as tif
 import javabridge as jv
 import bioformats as bf
 
-from filetypes import is_cellomics_image, is_cellomics_mask
+from .filetypes import is_cellomics_image, is_cellomics_mask
 
 
 VM_STARTED = False
@@ -171,7 +171,7 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
         os.remove(error_file)
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(
         description='Convert a bunch of Cellomics .C01 files to TIFFs.')
     parser.add_argument('root_path', help='The path containing .C01 files')
@@ -189,3 +189,7 @@ if __name__ == '__main__':
         convert_files(path.replace(args.root_path, args.out_path, 1), path,
                       files, args.error_file, args.ignore_masks, args.verbose)
     done()
+
+
+if __name__ == '__main__':
+    main()

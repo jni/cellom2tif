@@ -81,7 +81,7 @@ if __name__ == '__main__':
     shutil.rmtree(test_output_dir, ignore_errors=True)
     shutil.rmtree(test_output_mask_dir, ignore_errors=True)
 
-    call = ['python', 'cellom2tif.py']
+    call = ['python', 'bin/cellom2tif']
     if not args.ignore_masks:
         flags = []
         indirs = [test_data_dir, test_output_dir]

@@ -2,7 +2,7 @@ import os
 import argparse
 import sys
 
-from filetypes import is_cellomics_image, is_cellomics_mask
+from cellom2tif.filetypes import is_cellomics_image, is_cellomics_mask
 
 
 class open_write(argparse.Action):
