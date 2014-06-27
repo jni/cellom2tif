@@ -15,7 +15,7 @@ MAINTAINER_EMAIL    = 'juan.n@unimelb.edu.au'
 URL                 = 'https://github.com/jni/cellom2tif'
 LICENSE             = 'BSD 3-clause'
 DOWNLOAD_URL        = 'https://github.com/jni/cellom2tif'
-VERSION             = '0.1-dev'
+VERSION             = '0.2-dev'
 PYTHON_VERSION      = (2, 7)
 INST_DEPENDENCIES   = {} 
 
