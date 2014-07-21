@@ -1,0 +1,11 @@
+Name: husc
+Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
+Summary: Convert Cellomics .C01 files to TIFF in a directory tree
+
+Library:
+    Packages: cellom2tif
+
+Executable: cellom2tif
+    Module: cellom2tif.cellom2tif
+    Function: main
+
