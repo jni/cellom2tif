@@ -52,7 +52,7 @@ def missed_conversions(in_dir, out_dir, ignore_masks=False):
     >>> out_files
     ['image1.tif']
     >>> missed_conversions(in_dir, out_dir)
-    ['cellomics_files/image2.c01']
+    ['tests/cellomics_files/image2.c01']
     """
     in_paths = os.walk(in_dir)
     out_paths = os.walk(out_dir)
