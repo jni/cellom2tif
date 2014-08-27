@@ -101,8 +101,19 @@ def test_runtime_ignore_masks(outdir):
     indirs = [test_data_dir, test_output_mask_dir]
     resdir = test_results_mask_dir
     cmd_line = call + flags + indirs
-    print(' '.join(cmd_line))
-    sp.call(call + flags + indirs, shell=False)
+    sp.call(cmd_line, shell=False)
+    missing, not_equal = find_errors(indirs[1], resdir, ignore_masks=True)
+    assert len(missing) == 0
+    assert len(not_equal) == 0
+    print_errors(missing, not_equal, fout=outdir)
+
+
+def test_runtime(outdir):
+    call = ['python', 'bin/cellom2tif']
+    indirs = [test_data_dir, test_output_dir]
+    resdir = test_results_dir
+    cmd_line = call + indirs
+    sp.call(cmd_line, shell=False)
     missing, not_equal = find_errors(indirs[1], resdir, ignore_masks=True)
     assert len(missing) == 0
     assert len(not_equal) == 0
