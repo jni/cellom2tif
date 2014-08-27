@@ -43,8 +43,8 @@ def missed_conversions(in_dir, out_dir, ignore_masks=False):
 
     Examples
     --------
-    >>> in_dir = 'cellomics_files'
-    >>> out_dir = 'tiff_files'
+    >>> in_dir = 'tests/cellomics_files'
+    >>> out_dir = 'tests/tiff_files'
     >>> files = os.listdir(in_dir)
     >>> files
     ['image1.c01', 'image2.c01']
