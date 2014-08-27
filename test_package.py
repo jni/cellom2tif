@@ -81,7 +81,6 @@ def find_errors(out_dir, res_dir, ignore_masks=False):
                 percent_off = (out_im - res_im).astype(np.float) / res_im.max()
                 if np.any(np.abs(percent_off) > 0.01):
                     not_equal.append(reference_file)
-    print("%i files counted" % files_counted)
     return missed, not_equal
 
 
@@ -105,7 +104,6 @@ def test_runtime_ignore_masks(outdir):
     missing, not_equal = find_errors(indirs[1], resdir, ignore_masks=True)
     assert len(missing) == 0
     assert len(not_equal) == 0
-    print_errors(missing, not_equal, fout=outdir)
 
 
 def test_runtime(outdir):
@@ -117,6 +115,3 @@ def test_runtime(outdir):
     missing, not_equal = find_errors(indirs[1], resdir, ignore_masks=True)
     assert len(missing) == 0
     assert len(not_equal) == 0
-    print_errors(missing, not_equal, fout=outdir)
-
-
