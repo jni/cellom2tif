@@ -85,9 +85,9 @@ def split_top(path):
 
     Examples
     --------
-    >>> path = '/path/to/some/files'
+    >>> path = 'path/to/some/files'
     >>> split_top(path)
-    ('/path', 'to/some/files')
+    ('path', 'to/some/files')
     """
     split = os.path.split
     tails = []
