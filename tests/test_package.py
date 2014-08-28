@@ -9,9 +9,10 @@ from datetime import datetime as dt
 import numpy as np
 import pytest
 
-# Below: switch between Mahotas and scikit-image for IO.
-from skimage import io
+# Below: switch between TiffFile, Mahotas, and scikit-image for IO.
+from cellom2tif import tifffile as io
 # import mahotas as io
+# from skimage import io
 
 # Some constants
 test_data_dir = 'test-data'
