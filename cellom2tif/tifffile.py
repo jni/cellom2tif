@@ -110,10 +110,10 @@ Examples
 >>> image = imread('temp.tif')
 >>> assert numpy.all(image == data)
 
->>> tif = TiffFile('test.tif')
->>> images = tif.asarray()
->>> image0 = tif[0].asarray()
->>> for page in tif:
+>>> tif = TiffFile('test.tif') # doctest: +SKIP
+>>> images = tif.asarray() # doctest: +SKIP
+>>> image0 = tif[0].asarray() # doctest: +SKIP
+>>> for page in tif: # doctest: +SKIP
 ...     for tag in page.tags.values():
 ...         t = tag.name, tag.value
 ...     image = page.asarray()
@@ -124,7 +124,7 @@ Examples
 ...         t = page.mm_uic_tags.number_planes
 ...     if page.is_lsm:
 ...         t = page.cz_lsm_info
->>> tif.close()
+>>> tif.close() # doctest: +SKIP
 
 """
 
@@ -436,11 +436,11 @@ def imread(files, *args, **kwargs):
 
     Examples
     --------
-    >>> im = imread('test.tif', 0)
-    >>> im.shape
+    >>> im = imread('test.tif', 0) # doctest: +SKIP
+    >>> im.shape # doctest: +SKIP
     (256, 256, 4)
-    >>> ims = imread(['test.tif', 'test.tif'])
-    >>> ims.shape
+    >>> ims = imread(['test.tif', 'test.tif']) # doctest: +SKIP
+    >>> ims.shape # doctest: +SKIP
     (2, 256, 256, 4)
 
     """
@@ -503,7 +503,7 @@ class TiffFile(object):
 
     Examples
     --------
-    >>> tif = TiffFile('test.tif')
+    >>> tif = TiffFile('test.tif') # doctest: +SKIP
     ... try:
     ...     images = tif.asarray()
     ... except Exception as e:
@@ -1556,9 +1556,9 @@ class TiffSequence(object):
 
     Examples
     --------
-    >>> ims = TiffSequence("test.oif.files/*.tif")
-    >>> ims = ims.asarray()
-    >>> ims.shape
+    >>> ims = TiffSequence("test.oif.files/*.tif") # doctest: +SKIP
+    >>> ims = ims.asarray() # doctest: +SKIP
+    >>> ims.shape # doctest: +SKIP
     (2, 100, 256, 256)
 
     """

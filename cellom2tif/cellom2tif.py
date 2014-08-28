@@ -134,8 +134,8 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
 
     Examples
     --------
-    >>> in_dir = '../tests/cellomics_files'
-    >>> out_dir = '../tests/all_tiff_files'
+    >>> in_dir = 'tests/cellomics_files'
+    >>> out_dir = 'tests/all_tiff_files'
     >>> files = os.listdir(in_dir)
     >>> files
     ['image1.c01', 'image2.c01']
