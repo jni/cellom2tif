@@ -9,6 +9,14 @@ In short: it's not a great format. So you might as well convert all your
 Cellomics files to TIFF and forget about them forever. Software developers
 will thank you.
 
+
+# Continuous integration
+
+Cellom2tif uses Travis-CI and Coveralls for continuous integration:
+
+[![Build Status](https://travis-ci.org/jni/cellom2tif.svg?branch=master)](https://travis-ci.org/jni/cellom2tif)
+[![Coverage Status](https://img.shields.io/coveralls/jni/cellom2tif.svg)](https://coveralls.io/r/jni/cellom2tif)
+
 # Dependencies
 
 Uses [python-bioformats](http://pythonhosted.org/python-bioformats) and
