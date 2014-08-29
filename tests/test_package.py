@@ -1,5 +1,6 @@
 #!/bin/env python
 
+from __future__ import print_function
 import os
 import sys
 import subprocess as sp
@@ -82,6 +83,8 @@ def find_errors(out_dir, res_dir, ignore_masks=False):
                 percent_off = (out_im - res_im).astype(np.float) / res_im.max()
                 if np.any(np.abs(percent_off) > 0.01):
                     not_equal.append(reference_file)
+    if len(missed) > 0 or len(not_equal) > 0:
+        print(out_files, file=sys.stderr)
     return missed, not_equal
 
 
