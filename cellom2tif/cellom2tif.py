@@ -22,7 +22,7 @@ def start(max_heap_size='8G'):
         The maximum memory usage by the virtual machine. Valid strings
         include '256M', '64k', and '2G'. Expect to need a lot.
     """
-    jv.start_vm(class_path=bf.JARS, max_heap_size=max_heap_size)
+    jv.start_vm([], class_path=bf.JARS, max_heap_size=max_heap_size)
     global VM_STARTED
     VM_STARTED = True
 
