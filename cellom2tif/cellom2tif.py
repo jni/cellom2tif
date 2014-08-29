@@ -113,8 +113,7 @@ def split_top(path):
     return head, tail
 
 
-def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
-                  verbose=False):
+def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
     """Convert cellomics .C01 files to TIFF files in a sibling directory.
 
     This function is designed to be used with `os.walk`.
@@ -127,8 +126,6 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
         The path to the files to be converted.
     files : list of string
         The filenames of files, including non-.C01 files.
-    error_file : string, optional
-        A file to which to log "corrupted" images.
     ignore_masks : bool, optional
         Ignore files ending in "o1.C01".
     verbose : bool, optional
@@ -148,33 +145,25 @@ def convert_files(out_base, path, files, error_file=None, ignore_masks=False,
     >>> convert_files(out_dir, in_dir, files)
     >>> sorted(os.listdir(out_dir))
     ['image1.tif', 'image2.tif']
+    >>> convert_files(out_dir, in_dir, files, verbose=True) # print files
     """
     if not os.path.isdir(out_base):
         os.makedirs(out_base)
-    if error_file is None:
-        ferr = sys.stdout
-    else:
-        error_file = os.path.join(out_base, error_file)
-        ferr = open(error_file, 'w')
     files = filter(is_cellomics_image, files)
     if ignore_masks:
         files = filter(lambda fn: not is_cellomics_mask(fn), files)
     files = sorted(files)
-    errors_found = False
     for fn in files:
         fin = os.path.join(path, fn)
         if verbose:
-            print fin
+            print(fin)
         fout = os.path.join(out_base, fn)[:-4] + '.tif'
         if not os.path.exists(fout):
             im = read_image(fin)
             tif.imsave(fout, im)
         else:
             if verbose:
-                print fout, "exists"
-    if not errors_found and error_file is not None:
-        ferr.close()
-        os.remove(error_file)
+                print(fout, "exists")
 
 
 def main():
@@ -193,7 +182,7 @@ def main():
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
         convert_files(path.replace(args.root_path, args.out_path, 1), path,
-                      files, args.error_file, args.ignore_masks, args.verbose)
+                      files, args.ignore_masks, args.verbose)
     done()
 
 
