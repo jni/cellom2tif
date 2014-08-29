@@ -88,6 +88,9 @@ def split_top(path):
     >>> path = 'path/to/some/files'
     >>> split_top(path)
     ('path', 'to/some/files')
+    >>> path = '/root/path'
+    >>> split_top(path)
+    ('/', 'root/path')
     """
     split = os.path.split
     tails = []
