@@ -146,6 +146,10 @@ def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
     >>> sorted(os.listdir(out_dir))
     ['image1.tif', 'image2.tif']
     >>> convert_files(out_dir, in_dir, files, verbose=True) # print files
+    tests/cellomics_files/image1.c01
+    ('tests/all_tiff_files/image1.tif', 'exists')
+    tests/cellomics_files/image2.c01
+    ('tests/all_tiff_files/image2.tif', 'exists')
     """
     if not os.path.isdir(out_base):
         os.makedirs(out_base)
