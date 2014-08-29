@@ -1,6 +1,6 @@
 import os
 import argparse
-import sys
+import shutil
 
 from . import tifffile as tif
 import javabridge as jv
@@ -150,6 +150,7 @@ def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
     ('tests/all_tiff_files/image1.tif', 'exists')
     tests/cellomics_files/image2.c01
     ('tests/all_tiff_files/image2.tif', 'exists')
+    >>> shutil.rmtree(out_dir, ignore_errors=True) # cleanup after doctest
     """
     if not os.path.isdir(out_base):
         os.makedirs(out_base)
