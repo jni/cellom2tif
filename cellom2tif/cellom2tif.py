@@ -4,7 +4,11 @@ import os
 import argparse
 import shutil
 
-from . import tifffile as tif
+try:
+    import tifffile as tif
+except ImportError:
+    from . import tifffile as tif
+
 import javabridge as jv
 import bioformats as bf
 
