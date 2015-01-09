@@ -187,6 +187,9 @@ def main():
         description='Convert a bunch of Cellomics .C01 files to TIFFs.')
     parser.add_argument('root_path', help='The path containing .C01 files')
     parser.add_argument('out_path', help='The path to output the TIFFs.')
+    parser.add_argument('-c', '--compression', metavar='INT', type=int,
+                        default=1,
+                        help="Compression level for TIFF files.")
     parser.add_argument('-E', '--error-file', metavar='FILENAME',
                         help='Log problem filenames to the given filename.')
     parser.add_argument('-m', '--ignore-masks', action='store_true',
@@ -198,7 +201,7 @@ def main():
     paths = os.walk(args.root_path)
     for path, dirs, files in paths:
         convert_files(path.replace(args.root_path, args.out_path, 1), path,
-                      files, args.ignore_masks, args.verbose)
+                      files, args.compression, args.ignore_masks, args.verbose)
     done()
 
 
