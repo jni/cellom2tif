@@ -1,3 +1,5 @@
+from __future__ import division, absolute_import, print_function
+
 import os
 import argparse
 import shutil
@@ -147,9 +149,9 @@ def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
     ['image1.tif', 'image2.tif']
     >>> convert_files(out_dir, in_dir, files, verbose=True) # print files
     tests/cellomics_files/image1.c01
-    ('tests/all_tiff_files/image1.tif', 'exists')
+    tests/all_tiff_files/image1.tif exists
     tests/cellomics_files/image2.c01
-    ('tests/all_tiff_files/image2.tif', 'exists')
+    tests/all_tiff_files/image2.tif exists
     >>> shutil.rmtree(out_dir, ignore_errors=True) # cleanup after doctest
     """
     if not os.path.isdir(out_base):
