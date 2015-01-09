@@ -119,7 +119,8 @@ def split_top(path):
     return head, tail
 
 
-def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
+def convert_files(out_base, path, files, compression_level=1,
+                  ignore_masks=False, verbose=False):
     """Convert cellomics .C01 files to TIFF files in a sibling directory.
 
     This function is designed to be used with `os.walk`.
@@ -132,6 +133,10 @@ def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
         The path to the files to be converted.
     files : list of string
         The filenames of files, including non-.C01 files.
+    compression_level : int [0-9], optional
+        The zlib compression level for writing the TIFF files. 0 = no
+        compression, 1 = fastest, least compression, 9 = slowest, most
+        compression.
     ignore_masks : bool, optional
         Ignore files ending in "o1.C01".
     verbose : bool, optional
@@ -171,7 +176,7 @@ def convert_files(out_base, path, files, ignore_masks=False, verbose=False):
         fout = os.path.join(out_base, fn)[:-4] + '.tif'
         if not os.path.exists(fout):
             im = read_image(fin)
-            tif.imsave(fout, im)
+            tif.imsave(fout, im, compress=compression_level)
         else:
             if verbose:
                 print(fout, "exists")
