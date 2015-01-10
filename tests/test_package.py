@@ -116,6 +116,6 @@ def test_runtime(outdir):
     resdir = test_results_dir
     cmd_line = call + indirs
     sp.call(cmd_line, shell=False)
-    missing, not_equal = find_errors(indirs[1], resdir, ignore_masks=True)
+    missing, not_equal = find_errors(indirs[1], resdir, ignore_masks=False)
     assert len(missing) == 0
     assert len(not_equal) == 0
