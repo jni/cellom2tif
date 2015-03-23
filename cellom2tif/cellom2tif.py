@@ -72,6 +72,7 @@ def read_image(filelike):
     else:
         rdr = bf.ImageReader(filelike)
     image = rdr.read(rescale=False)
+    rdr.close()
     return image
 
 

@@ -1,7 +1,7 @@
 cellom2tif
 ==========
 
-Python script to convert Cellomics .C01 files to TIFF.
+Python script to convert Cellomics files to TIFF.
 
 Read the BioFormats [report card for Cellomics
 files](https://www.openmicroscopy.org/site/support/bio-formats5/formats/cellomics.html).
@@ -37,17 +37,18 @@ GPL* by the import of Python BioFormats.  Consult your lawyer.
 $ cellom2tif -h
 usage: cellom2tif [-h] [-E FILENAME] [-m] [-v] root_path out_path
 
-Convert a bunch of Cellomics .C01 files to TIFFs.
+Convert a bunch of Cellomics files to TIFFs. Currently supports the .CO1 and 
+.DIB format.
 
 positional arguments:
-  root_path             The path containing .C01 files
+  root_path             The path containing the Cellomics files
   out_path              The path to output the TIFFs.
 
 optional arguments:
   -h, --help            show this help message and exit
   -E FILENAME, --error-file FILENAME
                         Log problem filenames to the given filename.
-  -m, --ignore-masks    Ignore files ending in "o1.C01".
+  -m, --ignore-masks    Ignore files ending in "o1".
   -v, --verbose         Print out runtime information.
 ```
 
