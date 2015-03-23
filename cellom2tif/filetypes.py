@@ -18,6 +18,12 @@ def fn_has_ext(fn, ext, case_sensitive=False):
     -------
     file_has_ext : bool
         True if the filename has the specified extension.
+
+    Examples
+    --------
+    >>> dib_file = 'AS_09125_050116110001_A01f00d0.DIB'
+    >>> fn_has_ext(dib_file, 'dib', case_sensitive=True)
+    False
     """
     fn_ext = os.path.splitext(fn)[1][1:]
     if case_sensitive:
@@ -56,6 +62,12 @@ def is_cellomics_mask(fn):
     -------
     is_mask : bool
         True if the filename points to a Cellomics mask image.
+
+    Examples
+    --------
+    >>> mask_fn = 'MFGTMP_120628160001_C18f00o1.C01'
+    >>> is_cellomics_mask(mask_fn)
+    True
     """
     base_fn = os.path.splitext(fn)[0]
     is_mask = base_fn.endswith('o1') or base_fn.endswith('o1')
