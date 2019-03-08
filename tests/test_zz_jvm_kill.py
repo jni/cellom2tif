@@ -26,4 +26,4 @@ def test_vm_killed_error():
     cellom2tif.done()
     with pytest.raises(RuntimeError) as err:
         cellom2tif.read_image(cfile)
-    assert err.value.message.startswith('The Java Virtual Machine')
+    assert err.value.args[0].startswith('The Java Virtual Machine')
