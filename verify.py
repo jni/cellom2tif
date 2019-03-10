@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import argparse
 import sys
@@ -13,7 +14,7 @@ class open_write(argparse.Action):
             try:
                 fout = open(value, 'w')
             except IOError:
-                print 'Could not open file %s, falling back on stdout.' % value
+                print('Could not open file %s, falling back on stdout.' % value)
                 setattr(namespace, self.dest, sys.stdout)
             else:
                 setattr(namespace, self.dest, fout)
@@ -91,4 +92,3 @@ if __name__ == '__main__':
     if len(missed) == 0 and args.fout.name != '<stdout>':
         args.fout.close()
         os.remove(args.fout.name)
-

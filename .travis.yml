@@ -1,12 +1,10 @@
 language: python
 sudo: false
 python:
-    - "2.7"
-virtualenv:
-    system_site_packages: true
+    - "3.6"
 before_install:
     - pip install numpy
-    - pip install pytest pytest-cov
+    - pip install pytest>=3.6 pytest-cov
     - pip install coveralls
     - pip install javabridge python-bioformats
 
